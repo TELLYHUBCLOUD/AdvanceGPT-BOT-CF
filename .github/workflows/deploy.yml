@@ -1,27 +1,19 @@
-
----
-
-## 📜 **7. `.github/workflows/deploy.yml` (GitHub Actions for Auto Deployment)**
-```yaml
 name: Deploy to Cloudflare Workers
 
 on:
   push:
     branches:
-      - main
+      - master  # main এর পরিবর্তে master ব্রাঞ্চ ব্যবহার করা হলো
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
       - name: Install Wrangler
         run: npm install -g wrangler
 
-      - name: Authenticate with Cloudflare
-        run: wrangler login
-
-      - name: Deploy Worker
-        run: wrangler deploy
+      - name: Deploy to Cloudflare
+        run: wrangler publish
