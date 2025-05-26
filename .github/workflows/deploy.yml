@@ -24,7 +24,7 @@ jobs:
 
       - name: Authenticate Wrangler with API Token
         env:
-          CLOUDFLARE_API_TOKEN: d5b41a62da975eb29906b8201585fc0793d87
+          CLOUDFLARE_API_TOKEN: wovuotbmFlxVJ6Edm4-Vmt8zcigBO4w9EU_y1AUj
         run: |
           echo "api_token = \"$CLOUDFLARE_API_TOKEN\"" > ~/.wrangler/config/default.toml
 
