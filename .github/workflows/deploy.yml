@@ -1,31 +1,27 @@
-name: Deploy to Cloudflare Worker
+
+---
+
+## 📜 **7. `.github/workflows/deploy.yml` (GitHub Actions for Auto Deployment)**
+```yaml
+name: Deploy to Cloudflare Workers
 
 on:
   push:
-    branches: [ "main" ]
-  repository_dispatch:
+    branches:
+      - main
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [ 18.x ]
-
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Install Wrangler
+        run: npm install -g wrangler
 
-    - name: Deploy
-      run: |
-        npm install
-        npm run publish
-      env:
-        CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
-        CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-        
+      - name: Authenticate with Cloudflare
+        run: wrangler login
+
+      - name: Deploy Worker
+        run: wrangler deploy
